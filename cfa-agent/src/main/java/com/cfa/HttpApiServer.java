@@ -211,6 +211,7 @@ public class HttpApiServer {
         ex.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         ex.getResponseHeaders().add("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
         ex.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type,Authorization");
+        ex.getResponseHeaders().add("Access-Control-Allow-Private-Network", "true");
         ex.sendResponseHeaders(204, -1);
     }
 
@@ -219,6 +220,7 @@ public class HttpApiServer {
         ex.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         ex.getResponseHeaders().add("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
         ex.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type,Authorization");
+        ex.getResponseHeaders().add("Access-Control-Allow-Private-Network", "true");
         byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
         ex.sendResponseHeaders(code, bytes.length);
         try (OutputStream os = ex.getResponseBody()) { os.write(bytes); }
