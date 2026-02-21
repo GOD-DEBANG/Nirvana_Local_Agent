@@ -11,12 +11,12 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/java-api': {
-        target: 'http://localhost:8765',
+        target: 'http://127.0.0.1:8765',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/java-api/, '/api'),
       },
       '/ai-api': {
-        target: 'http://localhost:8766',
+        target: 'http://127.0.0.1:8766',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/ai-api/, ''),
       },

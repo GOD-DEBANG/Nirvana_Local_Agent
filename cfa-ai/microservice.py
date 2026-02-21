@@ -11,6 +11,7 @@ Endpoints:
 import os
 from collections import deque
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 from normalizer import normalize_snapshot
@@ -24,6 +25,7 @@ from weight_optimizer import apply_weights, current_weights, weight_history
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app) # Enable CORS for all routes
 app.config["JSON_SORT_KEYS"] = False
 
 # Rolling histories for each signal component (normalized [0,1])

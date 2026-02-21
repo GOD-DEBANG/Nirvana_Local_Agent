@@ -9,6 +9,12 @@ const isHosted = window.location.hostname !== 'localhost' && window.location.hos
 // Use 127.0.0.1 for maximum compatibility across different OS/Browser IP resolutions
 const JAVA_BASE = isHosted ? 'http://127.0.0.1:8765/api' : '/java-api';
 const AI_BASE   = isHosted ? 'http://127.0.0.1:8766'     : '/ai-api';
+const TIMEOUT_MS = 10000;
+
+function getAuthHeaders() {
+  const token = localStorage.getItem('cfa_api_key');
+  return token ? { 'Authorization': `Bearer ${token}` } : {};
+}
 
 async function fetchWithTimeout(url, opts = {}) {
   const controller = new AbortController();
