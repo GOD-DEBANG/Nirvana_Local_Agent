@@ -6,10 +6,9 @@
 
 const isHosted = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
 
-// Use absolute URLs when hosted (Vercel/Netlify) to bypass proxy limitations
-// Note: This requires browser to allow Mixed Content (HTTPS -> HTTP localhost)
-const JAVA_BASE = isHosted ? 'http://localhost:8765/api' : '/java-api';
-const AI_BASE   = isHosted ? 'http://localhost:8766'     : '/ai-api';
+// Use 127.0.0.1 for maximum compatibility across different OS/Browser IP resolutions
+const JAVA_BASE = isHosted ? 'http://127.0.0.1:8765/api' : '/java-api';
+const AI_BASE   = isHosted ? 'http://127.0.0.1:8766'     : '/ai-api';
 
 async function fetchWithTimeout(url, opts = {}) {
   const controller = new AbortController();

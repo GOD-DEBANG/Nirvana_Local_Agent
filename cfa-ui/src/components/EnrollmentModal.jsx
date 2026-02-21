@@ -81,13 +81,14 @@ export default function EnrollmentModal({ onEnrolled }) {
                 
                 {window.location.protocol === 'https:' && !isLinked && (
                   <div className="mb-6 p-4 border border-amber-500/30 bg-amber-500/5 rounded text-[10px] text-amber-500 font-mono text-left space-y-2">
-                    <p className="font-bold underline">⚠️ ACTION REQUIRED (NETLIFY HTTPS):</p>
-                    <p>1. Chrome says "Insecure material" is blocked. You ALREADY allowed it in settings.</p>
-                    <p>2. Now you MUST <b>Refresh this page</b> to apply the settings.</p>
-                    <p>3. If still blocked, check if <b>nirvana-agent</b> is running in terminal.</p>
+                    <p className="font-bold underline uppercase">⚠️ CONNECTION BLOCKED BY BROWSER:</p>
+                    <p>1. <b>Brave Users:</b> Turn OFF the "Shields" (Lion icon) for this site.</p>
+                    <p>2. <b>Chrome/Brave:</b> Go to Site Settings &rarr; Set "Insecure content" to <b>ALLOW</b>.</p>
+                    <p>3. <b>Every Domain:</b> You must do this for <i>{window.location.hostname}</i> specifically.</p>
+                    <p>4. <b>Action:</b> Refresh this page after changing settings.</p>
                     <div className="flex justify-between items-center pt-2 border-t border-amber-500/10 mt-2">
-                       <span>Link Status:</span>
-                       <span className="text-rose-500 font-bold">OFFLINE</span>
+                       <span>Link Status (127.0.0.1:8765):</span>
+                       <span className="text-rose-500 font-bold underline animate-pulse uppercase">Offline</span>
                     </div>
                   </div>
                 )}
