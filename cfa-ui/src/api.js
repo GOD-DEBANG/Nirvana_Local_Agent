@@ -28,8 +28,15 @@ async function fetchWithTimeout(url, opts = {}) {
     return await res.json();
   } catch (e) {
     clearTimeout(id);
+    // Provide a more descriptive error for connection failures
+    if (e.name === 'AbortError') throw new Error('Connection timed out');
+    if (e.message?.includes('Failed to fetch')) throw new Error('Local Agent Unreachable (check Mixed Content settings)');
     throw e;
   }
+}
+
+export async function checkHealth() {
+  return fetchWithTimeout(`${JAVA_BASE}/health`);
 }
 
 // ── Java Agent Endpoints ─────────────────────────────────────────────────────
