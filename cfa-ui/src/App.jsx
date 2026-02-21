@@ -34,6 +34,36 @@ function StatusDot({ active, label }) {
   );
 }
 
+function ConnectionAlert({ online, onClick }) {
+  if (online.java && online.ai) return null;
+  return (
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: 'auto', opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      className="mb-6 overflow-hidden"
+    >
+      <div 
+        onClick={onClick}
+        className="glass border-red/30 bg-red/5 p-3 flex items-center justify-between cursor-pointer hover:bg-red/10 transition-colors group"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-2 h-2 rounded-full bg-red pulse-ring" />
+          <span className="font-orbitron text-[11px] font-bold text-red tracking-[0.2em]">
+            SYSTEM ALERT: NEURAL LINK INTERRUPTED
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[9px] text-red/60 group-hover:text-red transition-colors">
+            EXECUTE INITIALIZATION PROTOCOL
+          </span>
+          <span className="text-red">▶</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function App() {
   const { status, anomalies, prediction, aiData, history, online, isEnrolled, refresh } = useMetrics();
   const [view, setView] = useState('dashboard'); // 'dashboard' or 'guidelines'
@@ -88,6 +118,8 @@ export default function App() {
             </div>
           </div>
         </motion.header>
+
+        <ConnectionAlert online={online} onClick={() => setView('guidelines')} />
 
         <AnimatePresence mode="wait">
           {view === 'dashboard' ? (
