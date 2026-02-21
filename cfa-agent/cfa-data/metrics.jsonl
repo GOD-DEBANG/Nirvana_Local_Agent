@@ -1,9 +1,3 @@
-{"ts":1771663879384,"gcs":96.5,"wifiCSI":98.6,"btCSI":84.5,"netCSI":100.0,"sysCSI":96.3,"rssi":-50.0,"latency":46.0,"packetLoss":0.000,"cpu":15.0,"mem":90.2,"btCount":11}
-{"ts":1771663890159,"gcs":96.6,"wifiCSI":98.7,"btCSI":85.1,"netCSI":100.0,"sysCSI":96.3,"rssi":-50.0,"latency":31.0,"packetLoss":0.000,"cpu":11.0,"mem":91.7,"btCount":11}
-{"ts":1771663890159,"gcs":96.7,"wifiCSI":98.7,"btCSI":85.7,"netCSI":100.0,"sysCSI":96.2,"rssi":-50.0,"latency":31.0,"packetLoss":0.000,"cpu":11.0,"mem":91.7,"btCount":11}
-{"ts":1771663890159,"gcs":96.8,"wifiCSI":98.7,"btCSI":86.0,"netCSI":100.0,"sysCSI":96.2,"rssi":-50.0,"latency":31.0,"packetLoss":0.000,"cpu":11.0,"mem":91.7,"btCount":11}
-{"ts":1771663901159,"gcs":96.8,"wifiCSI":98.8,"btCSI":86.3,"netCSI":100.0,"sysCSI":96.3,"rssi":-50.0,"latency":25.0,"packetLoss":0.000,"cpu":3.0,"mem":88.2,"btCount":11}
-{"ts":1771663901159,"gcs":96.9,"wifiCSI":98.8,"btCSI":86.6,"netCSI":100.0,"sysCSI":96.3,"rssi":-50.0,"latency":25.0,"packetLoss":0.000,"cpu":3.0,"mem":88.2,"btCount":11}
 {"ts":1771663901159,"gcs":97.0,"wifiCSI":98.9,"btCSI":86.9,"netCSI":100.0,"sysCSI":96.3,"rssi":-50.0,"latency":25.0,"packetLoss":0.000,"cpu":3.0,"mem":88.2,"btCount":11}
 {"ts":1771663901159,"gcs":97.0,"wifiCSI":98.9,"btCSI":86.9,"netCSI":100.0,"sysCSI":96.4,"rssi":-50.0,"latency":25.0,"packetLoss":0.000,"cpu":3.0,"mem":88.2,"btCount":11}
 {"ts":1771663912038,"gcs":96.9,"wifiCSI":98.8,"btCSI":86.6,"netCSI":100.0,"sysCSI":96.4,"rssi":-50.0,"latency":24.0,"packetLoss":0.000,"cpu":2.0,"mem":87.1,"btCount":11}
@@ -998,3 +992,9 @@
 {"ts":1771667620999,"gcs":91.1,"wifiCSI":98.3,"btCSI":80.4,"netCSI":100.0,"sysCSI":72.5,"rssi":-50.0,"latency":40.0,"packetLoss":0.000,"cpu":31.0,"mem":91.9,"btCount":11}
 {"ts":1771667633820,"gcs":91.0,"wifiCSI":98.4,"btCSI":80.5,"netCSI":100.0,"sysCSI":72.3,"rssi":-50.0,"latency":34.0,"packetLoss":0.000,"cpu":11.0,"mem":93.6,"btCount":11}
 {"ts":1771667633820,"gcs":91.0,"wifiCSI":98.4,"btCSI":80.6,"netCSI":100.0,"sysCSI":72.1,"rssi":-50.0,"latency":34.0,"packetLoss":0.000,"cpu":11.0,"mem":93.6,"btCount":11}
+{"ts":1771667633820,"gcs":91.0,"wifiCSI":98.4,"btCSI":80.6,"netCSI":100.0,"sysCSI":71.9,"rssi":-50.0,"latency":34.0,"packetLoss":0.000,"cpu":11.0,"mem":93.6,"btCount":11}
+{"ts":1771667633820,"gcs":91.0,"wifiCSI":98.5,"btCSI":80.7,"netCSI":100.0,"sysCSI":71.8,"rssi":-50.0,"latency":34.0,"packetLoss":0.000,"cpu":11.0,"mem":93.6,"btCount":11}
+{"ts":1771667633820,"gcs":91.0,"wifiCSI":98.5,"btCSI":80.8,"netCSI":100.0,"sysCSI":71.7,"rssi":-50.0,"latency":34.0,"packetLoss":0.000,"cpu":11.0,"mem":93.6,"btCount":11}
+{"ts":1771667646549,"gcs":91.0,"wifiCSI":98.4,"btCSI":81.1,"netCSI":100.0,"sysCSI":71.8,"rssi":-50.0,"latency":53.0,"packetLoss":0.000,"cpu":3.0,"mem":94.0,"btCount":11}
+{"ts":1771667646549,"gcs":91.3,"wifiCSI":98.4,"btCSI":81.7,"netCSI":100.0,"sysCSI":72.5,"rssi":-50.0,"latency":53.0,"packetLoss":0.000,"cpu":3.0,"mem":94.0,"btCount":11}
+{"ts":1771667646549,"gcs":91.4,"wifiCSI":98.4,"btCSI":81.9,"netCSI":100.0,"sysCSI":73.1,"rssi":-50.0,"latency":53.0,"packetLoss":0.000,"cpu":3.0,"mem":94.0,"btCount":11}
