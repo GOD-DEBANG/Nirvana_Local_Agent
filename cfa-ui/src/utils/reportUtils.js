@@ -37,22 +37,25 @@ export async function downloadWiFiReport(history) {
   });
 
   try {
-    const rawData = await fetchRawTelemetry();
+    const rawData = await fetchRawTelemetry().catch(e => {
+        if (e.message?.includes('401')) return { raw: "AUTHENTICATION FAILED (401). ACTION: Please refresh the dashboard and re-complete the HANDSHAKE/ENROLLMENT modal to sync with the agent." };
+        return { raw: "AGENT OFFLINE. ACTION: Please ensure the Java Agent is running in your terminal." };
+    });
     const finalY = doc.lastAutoTable.finalY + 15;
     
-    // Add page break if near bottom
-    if (finalY > 240) doc.addPage();
+    // Explicitly add a new page for diagnostic logs
+    doc.addPage();
     
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(124, 58, 237);
-    doc.text('RAW DIAGNOSTIC LOGS (OS DATA)', 14, finalY > 240 ? 25 : finalY);
+    doc.text('RAW DIAGNOSTIC LOGS (OS DATA)', 14, 25);
     
     doc.setFontSize(7);
     doc.setFont("courier", "normal");
-    doc.setTextColor(60);
-    const splitText = doc.splitTextToSize(rawData.raw || "No raw data available.", 182);
-    doc.text(splitText, 14, (finalY > 240 ? 25 : finalY) + 7);
+    doc.setTextColor(50);
+    const splitText = doc.splitTextToSize(rawData.raw || "No raw telemetry collected.", 182);
+    doc.text(splitText, 14, 35);
   } catch (e) {
     console.error("Failed to append raw telemetry", e);
   }
@@ -90,21 +93,23 @@ export async function downloadBluetoothReport(history) {
   });
 
   try {
-    const rawData = await fetchRawTelemetry();
-    const finalY = doc.lastAutoTable.finalY + 15;
+    const rawData = await fetchRawTelemetry().catch(e => {
+        if (e.message?.includes('401')) return { raw: "AUTHENTICATION FAILED (401). ACTION: Please refresh the dashboard and re-complete the HANDSHAKE/ENROLLMENT modal to sync with the agent." };
+        return { raw: "AGENT OFFLINE. ACTION: Please ensure the Java Agent is running in your terminal." };
+    });
     
-    if (finalY > 240) doc.addPage();
+    doc.addPage();
     
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(59, 130, 246);
-    doc.text('RAW DIAGNOSTIC LOGS (OS DATA)', 14, finalY > 240 ? 25 : finalY);
+    doc.text('RAW DIAGNOSTIC LOGS (OS DATA)', 14, 25);
     
     doc.setFontSize(7);
     doc.setFont("courier", "normal");
-    doc.setTextColor(60);
-    const splitText = doc.splitTextToSize(rawData.raw || "No raw data available.", 182);
-    doc.text(splitText, 14, (finalY > 240 ? 25 : finalY) + 7);
+    doc.setTextColor(50);
+    const splitText = doc.splitTextToSize(rawData.raw || "No raw telemetry collected.", 182);
+    doc.text(splitText, 14, 35);
   } catch (e) {
     console.error("Failed to append raw telemetry", e);
   }

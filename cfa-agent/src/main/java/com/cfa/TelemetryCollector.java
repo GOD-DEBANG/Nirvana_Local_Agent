@@ -147,9 +147,9 @@ public class TelemetryCollector {
     private void collectBluetooth(TelemetrySnapshot snap) {
         String os = System.getProperty("os.name", "").toLowerCase();
         if (os.contains("win")) {
-            // Count unique hardware devices by matching 'DEV_' patterns in InstanceId
+            // Count unique hardware devices via Get-PnpDevice (more robust for active peripherals)
             String countOut = runCommand("powershell", "-Command", 
-                "@(Get-PnpDevice -Class Bluetooth | Where-Object { $_.Status -eq 'OK' -and ($_.InstanceId -match 'DEV_') } | Select-Object -Unique FriendlyName).Count");
+                "@(Get-PnpDevice -Class Bluetooth | Where-Object { $_.Status -eq 'OK' -and ($_.InstanceId -match 'DEV_([0-9A-F]{12})') } | ForEach-Object { $Matches[1] } | Select-Object -Unique).Count");
             
             String trimmed = countOut.trim();
             if (trimmed.isEmpty() || !trimmed.matches("\\d+")) {

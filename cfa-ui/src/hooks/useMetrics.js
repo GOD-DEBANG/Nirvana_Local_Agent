@@ -44,7 +44,12 @@ export default function useMetrics() {
       setPrediction(p);
       setOnline(prev => ({ ...prev, java: true }));
       addToHistory(s);
-    } catch {
+    } catch (e) {
+      if (e.message?.includes('401')) {
+        console.warn("Authentication failed (401). Clearing credentials.");
+        localStorage.removeItem('cfa_api_key');
+        setIsEnrolled(false);
+      }
       const mock = getMockStatus();
       setStatus({ ...mock, isMock: true });
       setAnomalies(getMockAnomalies());
