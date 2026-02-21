@@ -1,0 +1,3 @@
+recursive-include nirvana_agent/bin *.jar
+recursive-include nirvana_agent/ai *
+exclude nirvana_agent/ai/__pycache__/*

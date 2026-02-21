@@ -15,7 +15,9 @@ import SpectrumAnalyzer      from './components/SpectrumAnalyzer';
 import APIManagement         from './components/APIManagement';
 import useMetrics            from './hooks/useMetrics';
 import EnrollmentModal      from './components/EnrollmentModal';
+import Guidelines           from './components/Guidelines';
 import { downloadWiFiReport, downloadBluetoothReport } from './utils/reportUtils';
+import { useState } from 'react';
 
 function StatusDot({ active, label }) {
   return (
@@ -34,6 +36,7 @@ function StatusDot({ active, label }) {
 
 export default function App() {
   const { status, anomalies, prediction, aiData, history, online, isEnrolled, refresh } = useMetrics();
+  const [view, setView] = useState('dashboard'); // 'dashboard' or 'guidelines'
 
   return (
     <div className="bg-neural" style={{ minHeight: '100vh', position: 'relative' }}>
@@ -53,13 +56,22 @@ export default function App() {
           transition={{ duration: 0.6 }}
           className="flex items-center justify-between mb-6"
         >
-          <div>
-            <h1 className="font-orbitron font-black" style={{ fontSize: 22, color: 'var(--violet-200)', letterSpacing: '0.08em' }}>
-              ⚛ COGNITIVE FIELD ANALYZER
-            </h1>
-            <p className="font-mono" style={{ fontSize: 10, color: 'var(--text-dim)', marginTop: 2, letterSpacing: '0.15em' }}>
-              CSPU v1.0 · DEVICE:{status.deviceId?.substring(0, 12) ?? 'CFA-DEMO'}···
-            </p>
+          <div className="flex items-center gap-6">
+            <div>
+              <h1 className="font-orbitron font-black" style={{ fontSize: 22, color: 'var(--violet-200)', letterSpacing: '0.08em' }}>
+                ⚛ COGNITIVE FIELD ANALYZER
+              </h1>
+              <p className="font-mono" style={{ fontSize: 10, color: 'var(--text-dim)', marginTop: 2, letterSpacing: '0.15em' }}>
+                CSPU v1.0 · DEVICE:{status.deviceId?.substring(0, 12) ?? 'CFA-DEMO'}···
+              </p>
+            </div>
+            
+            <button 
+              onClick={() => setView(v => v === 'dashboard' ? 'guidelines' : 'dashboard')}
+              className="px-4 py-1.5 rounded border border-violet-500/20 text-[10px] font-mono hover:bg-violet-500/10 transition-all tracking-widest text-violet-400"
+            >
+              {view === 'dashboard' ? '◈ HELP / GUIDES' : '◈ DASHBOARD'}
+            </button>
           </div>
 
           <div className="flex items-center gap-6">
@@ -77,61 +89,75 @@ export default function App() {
           </div>
         </motion.header>
 
-        {/* ── Main Grid ─────────────────────────────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr 320px', gap: 16, alignItems: 'start' }}>
+        <AnimatePresence mode="wait">
+          {view === 'dashboard' ? (
+            <motion.div 
+              key="dashboard"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.4 }}
+            >
+              {/* ── Main Grid ─────────────────────────────────────────────────────── */}
+              <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr 320px', gap: 16, alignItems: 'start' }}>
 
-          {/* ── Column 1: GCS Dial & Tools ──── */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="flex flex-col gap-4"
-          >
-            <GlobalCognitiveDial
-              gcs={status.gcs}
-              bayesian={status.bayesian}
-            />
+                {/* ── Column 1: GCS Dial & Tools ──── */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="flex flex-col gap-4"
+                >
+                  <GlobalCognitiveDial
+                    gcs={status.gcs}
+                    bayesian={status.bayesian}
+                  />
 
-            <APIManagement 
-              history={history}
-              onDownloadWiFi={() => downloadWiFiReport(history)}
-              onDownloadBT={() => downloadBluetoothReport(history)}
-            />
-          </motion.div>
+                  <APIManagement 
+                    history={history}
+                    onDownloadWiFi={() => downloadWiFiReport(history)}
+                    onDownloadBT={() => downloadBluetoothReport(history)}
+                  />
+                </motion.div>
 
-          {/* ── Column 2: Center panels ──── */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col gap-4"
-          >
-            {/* CSI Meters row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
-              <CSIMeter label="WiFi CSI"       type="wifi"    value={status.wifiCSI ?? 65} subtitle={`RSSI ~${status.wifiRssi?.toFixed(0) ?? '-65'} dBm`} />
-              <CSIMeter label="Bluetooth CSI"  type="bt"      value={status.btCSI   ?? 55} subtitle={`${status.btDeviceCount ?? 0} devices`} />
-              <CSIMeter label="Network CSI"    type="network" value={status.netCSI  ?? 70} subtitle="packet quality" />
-              <CSIMeter label="System CSI"     type="system"  value={status.sysCSI  ?? 75} subtitle="CPU + Memory" />
-            </div>
+                {/* ── Column 2: Center panels ──── */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="flex flex-col gap-4"
+                >
+                  {/* CSI Meters row */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+                    <CSIMeter label="WiFi CSI"       type="wifi"    value={status.wifiCSI ?? 65} subtitle={`RSSI ~${status.wifiRssi?.toFixed(0) ?? '-65'} dBm`} />
+                    <CSIMeter label="Bluetooth CSI"  type="bt"      value={status.btCSI   ?? 55} subtitle={`${status.btDeviceCount ?? 0} devices`} />
+                    <CSIMeter label="Network CSI"    type="network" value={status.netCSI  ?? 70} subtitle="packet quality" />
+                    <CSIMeter label="System CSI"     type="system"  value={status.sysCSI  ?? 75} subtitle="CPU + Memory" />
+                  </div>
 
-            {/* Entropy graph */}
-            <NetworkEntropyGraph history={history} />
+                  {/* Entropy graph */}
+                  <NetworkEntropyGraph history={history} />
 
-            {/* Spectrum analyzer */}
-            <SpectrumAnalyzer status={status} />
-          </motion.div>
+                  {/* Spectrum analyzer */}
+                  <SpectrumAnalyzer status={status} />
+                </motion.div>
 
-          {/* ── Column 3: Right panel ──── */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col gap-4"
-          >
-            <AIInsightPanel aiData={aiData} forecast={prediction} />
-            <AnomalyAlerts  anomalies={anomalies} />
-          </motion.div>
-        </div>
+                {/* ── Column 3: Right panel ──── */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="flex flex-col gap-4"
+                >
+                  <AIInsightPanel aiData={aiData} forecast={prediction} />
+                  <AnomalyAlerts  anomalies={anomalies} />
+                </motion.div>
+              </div>
+            </motion.div>
+          ) : (
+            <Guidelines onBack={() => setView('dashboard')} />
+          )}
+        </AnimatePresence>
 
         {/* ── Footer ───────────────────────────────────────────────────────── */}
         <motion.footer
