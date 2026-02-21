@@ -128,3 +128,35 @@ export function getMockAI() {
     ai_source: 'mock',
   };
 }
+
+export function getMockRawTelemetry() {
+  return {
+    raw: `--- WiFi Interfaces ---
+
+There is 1 interface on the system:
+
+    Name                   : Wi-Fi
+    Description            : Cognitive Realtek Emulator
+    GUID                   : {885472bc-eb50-4829-87c2-1248967b5e8a}
+    State                  : connected
+    SSID                   : CFA_SECURE_NODE
+    BSSID                  : 00:a0:c9:14:c8:29
+    Network type           : Infrastructure
+    Radio type             : 802.11ax
+    Authentication         : WPA3-Personal
+    Cipher                 : CCMP
+    Connection mode        : Profile
+    Channel                : 36
+    Receive rate (Mbps)    : 866.7
+    Transmit rate (Mbps)   : 866.7
+    Signal                 : 98%
+
+--- Bluetooth Devices ---
+
+FriendlyName               InstanceId
+------------               ----------
+NB140N Bluetooth Speaker   BTHENUM\\DEV_4142F0DD7C23\\8&2A485A0&0&BLUETOOTHDEVICE_4142F0DD7C23
+Generic BT Phone Emulator   BTHENUM\\DEV_2CE49ED12A45\\8&2A485A0&0&BLUETOOTHDEVICE_2CE49ED12A45
+`
+  };
+}
