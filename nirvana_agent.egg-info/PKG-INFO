@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: nirvana-agent
+Version: 1.0.0
+Summary: Local agent services for Nirvana Web App
+Author: CFA Team
+Requires-Dist: flask>=3.0.3
+Requires-Dist: google-generativeai>=0.7.2
+Requires-Dist: numpy>=1.26.4
+Requires-Dist: scipy>=1.13.0
+Requires-Dist: requests>=2.32.3
+Requires-Dist: python-dotenv>=1.0.1
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: summary

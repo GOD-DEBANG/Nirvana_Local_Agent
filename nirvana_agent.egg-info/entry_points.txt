@@ -1,0 +1,2 @@
+[console_scripts]
+nirvana-agent = nirvana_agent.cli:main
