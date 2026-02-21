@@ -15,6 +15,7 @@ import SpectrumAnalyzer      from './components/SpectrumAnalyzer';
 import APIManagement         from './components/APIManagement';
 import useMetrics            from './hooks/useMetrics';
 import EnrollmentModal      from './components/EnrollmentModal';
+import SetupGuide           from './components/SetupGuide';
 import Guidelines           from './components/Guidelines';
 import { downloadWiFiReport, downloadBluetoothReport } from './utils/reportUtils';
 import { useState } from 'react';
@@ -67,6 +68,7 @@ function ConnectionAlert({ online, onClick }) {
 export default function App() {
   const { status, anomalies, prediction, aiData, history, online, isEnrolled, refresh } = useMetrics();
   const [view, setView] = useState('dashboard'); // 'dashboard' or 'guidelines'
+  const [showSetup, setShowSetup] = useState(!isEnrolled);
 
   return (
     <div className="bg-neural" style={{ minHeight: '100vh', position: 'relative' }}>
@@ -74,7 +76,13 @@ export default function App() {
 
       <div style={{ position: 'fixed', top: 10, left: 10, color: 'white', zIndex: 9999, fontSize: 10 }}>CFA DEBUG: ENROLLED={String(isEnrolled)}</div>
 
-      {!isEnrolled && <EnrollmentModal onEnrolled={refresh} />}
+      {!isEnrolled && showSetup && (
+        <SetupGuide onProceed={() => setShowSetup(false)} />
+      )}
+
+      {!isEnrolled && !showSetup && (
+        <EnrollmentModal onEnrolled={refresh} />
+      )}
 
       {/* Main content layer */}
       <div style={{ position: 'relative', zIndex: 1, padding: '16px 20px', maxWidth: 1600, margin: '0 auto', opacity: isEnrolled ? 1 : 0.3, filter: isEnrolled ? 'none' : 'blur(4px)', pointerEvents: isEnrolled ? 'auto' : 'none', transition: 'all 0.8s ease' }}>
