@@ -35,15 +35,15 @@ export default function Guidelines({ onBack }) {
           <div className="flex items-start gap-4">
             <div className="font-orbitron text-3xl font-bold text-violet-500/40">01</div>
             <div className="flex-1">
-              <h3 className="font-orbitron text-lg font-bold text-violet-300 mb-2">WORKSPACE ANALYTICS</h3>
+              <h3 className="font-orbitron text-lg font-bold text-violet-300 mb-2">SOURCE INSTALLATION</h3>
               <p className="text-text-secondary mb-3">
-                Initialize a dedicated workspace for the Nirvana runtime sequence.
+                Since Nirvana is your local private agent, you must point <b>pip</b> to its source folder to "wire" it into your system.
               </p>
               
               <div className="bg-void/50 rounded-lg p-4 font-mono text-sm border border-violet-900/50 flex flex-col gap-2">
-                <div className="text-text-dim border-b border-violet-500/10 pb-1 mb-1 text-[10px]">TERMINAL (INITIALIZATION)</div>
-                <div>mkdir my-nirvana-agent</div>
-                <div>cd my-nirvana-agent</div>
+                <div className="text-text-dim border-b border-violet-500/10 pb-1 mb-1 text-[10px]">TERMINAL (RUN ONCE)</div>
+                <div className="text-violet-400"># Point to where you downloaded the Nirvana_Local_Agent folder</div>
+                <div>pip install "C:\Users\GOD.DEBANG\Desktop\Nirvana_Local_Agent"</div>
               </div>
             </div>
           </div>
@@ -54,21 +54,14 @@ export default function Guidelines({ onBack }) {
           <div className="flex items-start gap-4">
             <div className="font-orbitron text-3xl font-bold text-violet-500/40">02</div>
             <div>
-              <h3 className="font-orbitron text-lg font-bold text-violet-300 mb-2">ENVIRONMENT ACTIVATION</h3>
+              <h3 className="font-orbitron text-lg font-bold text-violet-300 mb-2">VIRTUAL WORKSPACE</h3>
               <p className="text-text-secondary mb-3">
-                Generate and activate your Neural Virtual Environment to isolate dependencies.
+                Now you can create a fresh folder anywhere and activate your link.
               </p>
               <div className="bg-void/50 rounded-lg p-4 font-mono text-sm border border-violet-900/50 flex flex-col gap-2">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[10px] text-text-dim">WINDOWS</span>
-                  <div>python -m venv .venv</div>
-                  <div className="text-violet-400">.\.venv\Scripts\activate</div>
-                </div>
-                <div className="border-t border-violet-500/10 pt-2 flex flex-col gap-1">
-                  <span className="text-[10px] text-text-dim">MAC / LINUX</span>
-                  <div>python3 -m venv .venv</div>
-                  <div className="text-violet-400">source .venv/bin/activate</div>
-                </div>
+                <div>mkdir my-nirvana</div>
+                <div>cd my-nirvana</div>
+                <div className="text-violet-400">.\.venv\Scripts\activate</div>
               </div>
             </div>
           </div>
@@ -79,14 +72,12 @@ export default function Guidelines({ onBack }) {
           <div className="flex items-start gap-4">
             <div className="font-orbitron text-3xl font-bold text-violet-500/40">03</div>
             <div>
-              <h3 className="font-orbitron text-lg font-bold text-violet-300 mb-2">LAUNCH PROTOCOL</h3>
+              <h3 className="font-orbitron text-lg font-bold text-violet-300 mb-2">ACTIVATE AGENT</h3>
               <p className="text-text-secondary mb-3">
-                Install and start the agent. The system will now begin local telemetry aggregation.
+                The <span className="text-cyan">nirvana-agent</span> command is now a global protocol. Launch it from your new folder.
               </p>
               <div className="bg-void/50 rounded-lg p-4 font-mono text-sm border border-violet-900/50 flex flex-col gap-2">
-                <div className="text-violet-400"># Run once to install</div>
-                <div>pip install nirvana-agent</div>
-                <div className="border-t border-violet-500/10 pt-2 text-cyan">nirvana-agent start</div>
+                <div className="text-cyan font-bold">nirvana-agent start</div>
               </div>
             </div>
           </div>

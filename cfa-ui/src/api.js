@@ -4,15 +4,12 @@
  * Falls back to mock data when services are offline (dev mode).
  */
 
-const JAVA_BASE = '/java-api';
-const AI_BASE   = '/ai-api';
+const isHosted = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
 
-const TIMEOUT_MS = 5000;
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem('cfa_api_key');
-  return token ? { 'Authorization': `Bearer ${token}` } : {};
-};
+// Use absolute URLs when hosted (Vercel/Netlify) to bypass proxy limitations
+// Note: This requires browser to allow Mixed Content (HTTPS -> HTTP localhost)
+const JAVA_BASE = isHosted ? 'http://localhost:8765/api' : '/java-api';
+const AI_BASE   = isHosted ? 'http://localhost:8766'     : '/ai-api';
 
 async function fetchWithTimeout(url, opts = {}) {
   const controller = new AbortController();

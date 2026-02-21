@@ -1,3 +1,4 @@
+MANIFEST.in
 README.md
 setup.py
 nirvana_agent/__init__.py
@@ -8,6 +9,7 @@ nirvana_agent.egg-info/dependency_links.txt
 nirvana_agent.egg-info/entry_points.txt
 nirvana_agent.egg-info/requires.txt
 nirvana_agent.egg-info/top_level.txt
+nirvana_agent/ai/.env
 nirvana_agent/ai/gemini_client.py
 nirvana_agent/ai/math_engine.py
 nirvana_agent/ai/microservice.py
