@@ -17,6 +17,8 @@ import useMetrics            from './hooks/useMetrics';
 import EnrollmentModal      from './components/EnrollmentModal';
 import SetupGuide           from './components/SetupGuide';
 import Guidelines           from './components/Guidelines';
+import MeetingAssurance     from './components/MeetingAssurance';
+import Community            from './components/Community';
 import { downloadWiFiReport, downloadBluetoothReport } from './utils/reportUtils';
 import { useState } from 'react';
 
@@ -67,7 +69,7 @@ function ConnectionAlert({ online, onClick }) {
 
 export default function App() {
   const { status, anomalies, prediction, aiData, history, online, isEnrolled, refresh } = useMetrics();
-  const [view, setView] = useState('dashboard'); // 'dashboard' or 'guidelines'
+  const [view, setView] = useState('dashboard'); // 'dashboard', 'guidelines', or 'community'
   const [showSetup, setShowSetup] = useState(!isEnrolled);
 
   return (
@@ -104,12 +106,20 @@ export default function App() {
               </p>
             </div>
             
-            <button 
-              onClick={() => setView(v => v === 'dashboard' ? 'guidelines' : 'dashboard')}
-              className="px-4 py-1.5 rounded border border-violet-500/20 text-[10px] font-mono hover:bg-violet-500/10 transition-all tracking-widest text-violet-400"
-            >
-              {view === 'dashboard' ? '◈ HELP / GUIDES' : '◈ DASHBOARD'}
-            </button>
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setView(v => v === 'dashboard' ? 'guidelines' : 'dashboard')}
+                className="px-4 py-1.5 rounded border border-violet-500/20 text-[10px] font-mono hover:bg-violet-500/10 transition-all tracking-widest text-violet-400"
+              >
+                {view === 'guidelines' ? '◈ DASHBOARD' : '◈ HELP / GUIDES'}
+              </button>
+              <button 
+                onClick={() => setView(v => v === 'community' ? 'dashboard' : 'community')}
+                className="px-4 py-1.5 rounded border border-violet-500/20 text-[10px] font-mono hover:bg-violet-500/10 transition-all tracking-widest text-violet-400"
+              >
+                {view === 'community' ? '◈ DASHBOARD' : '◈ COMMUNITY'}
+              </button>
+            </div>
           </div>
 
           <div className="flex items-center gap-6">
@@ -153,6 +163,8 @@ export default function App() {
                     bayesian={status.bayesian}
                   />
 
+                  <MeetingAssurance currentTelemetry={status} />
+
                   <APIManagement 
                     history={history}
                     onDownloadWiFi={() => downloadWiFiReport(history)}
@@ -194,6 +206,8 @@ export default function App() {
                 </motion.div>
               </div>
             </motion.div>
+          ) : view === 'community' ? (
+            <Community onBack={() => setView('dashboard')} />
           ) : (
             <Guidelines onBack={() => setView('dashboard')} />
           )}

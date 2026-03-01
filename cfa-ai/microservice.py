@@ -150,6 +150,64 @@ def analyze():
     }), 200
 
 
+@app.route("/analyze/meeting", methods=["POST"])
+def analyze_meeting():
+    """
+    High-resolution stability check for online meetings.
+    Analyzes the last 10-20 samples for jitter, packet loss, and signal variance.
+    """
+    data = request.get_json(force=True, silent=True) or {}
+    
+    # Extract recent history for analysis
+    wifi_hist = list(histories["wifi"])
+    net_hist  = list(histories["net"])
+    
+    if len(wifi_hist) < 5:
+        return jsonify({
+            "ready": False,
+            "score": 0,
+            "verdict": "Insufficient data. Please wait for signal stabilization.",
+            "details": "Collecting environmental telemetry..."
+        }), 200
+
+    # Calculate stability metrics
+    stability = 1.0 - signal_variance(wifi_hist[-10:])
+    jitter = signal_variance(net_hist[-10:])
+    latency = float(data.get("latency_ms", 20.0))
+    loss = float(data.get("packet_loss_ratio", 0.0))
+    
+    # Heuristic scoring
+    score = (stability * 40) + (max(0, 1 - jitter) * 30) + (max(0, 1 - (latency/200)) * 20) + (max(0, 1 - loss) * 10)
+    score = round(min(100, max(0, score)), 1)
+    
+    # AI-style verdict
+    if score > 85:
+        verdict = "OPTIMAL: Safe for 4K video and screen sharing."
+        details = "Signal is extremely stable with negligible jitter."
+    elif score > 65:
+        verdict = "STABLE: Good for HD video calls."
+        details = "Minor signal fluctuations detected, but within safe margins."
+    elif score > 40:
+        verdict = "CAUTION: Audio-only recommended."
+        details = "High signal entropy detected. Video may stutter or disconnect."
+    else:
+        verdict = "UNSTABLE: Connection risk high."
+        details = "Critical packet loss or latency jitter. Move closer to the router."
+
+    return jsonify({
+        "ready": True,
+        "score": score,
+        "verdict": verdict,
+        "details": details,
+        "metrics": {
+            "stability": round(stability, 2),
+            "jitter": round(jitter, 3),
+            "latency": latency,
+            "packet_loss": loss
+        }
+    }), 200
+
+
 if __name__ == "__main__":
     port = int(os.getenv("CFA_AI_PORT", "8766"))
     print(f"[CFA-AI] Starting microservice on http://0.0.0.0:{port}")

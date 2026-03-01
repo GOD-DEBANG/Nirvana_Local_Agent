@@ -92,6 +92,14 @@ export async function analyzeWithAI(telemetry) {
   });
 }
 
+export async function analyzeMeeting(telemetry) {
+  return fetchWithTimeout(`${AI_BASE}/analyze/meeting`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(telemetry),
+  });
+}
+
 // ── Mock data for standalone UI development ──────────────────────────────────
 
 export function getMockStatus() {
